@@ -1,10 +1,10 @@
-package teknologi.informasi.restapi;
+package com.teknologiinformasi.restapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class LearnRestapiApplicationTests {
+class RestfulApiApplicationTests {
 
 	@Test
 	void contextLoads() {

@@ -1,12 +1,12 @@
-package teknologi.informasi.restapi.controller;
+package com.teknologiinformasi.restapi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import teknologi.informasi.restapi.model.Produk;
-import teknologi.informasi.restapi.services.ProdukService;
+import com.teknologiinformasi.restapi.model.Produk;
+import com.teknologiinformasi.restapi.service.ProdukService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -69,7 +69,6 @@ public ResponseEntity<Map<String, String>> deleteProduk(@PathVariable Long id) {
        Map<String, String> response = new HashMap<>();
        response.put("message", "Produk tidak ditemukan dengan id " + id);
        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
-    }
+   }
 }
 }
-

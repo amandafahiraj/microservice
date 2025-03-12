@@ -1,11 +1,10 @@
-package teknologi.informasi.restapi.model;
-
+package com.teknologiinformasi.restapi.model;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 
 @Entity
@@ -20,7 +19,8 @@ public class Produk {
 
    private String nama;
    private Double harga;
-     private String deskripsi;
+   private String deskripsi;
+   private int stok;
 
 
    // Constructor tanpa parameter
@@ -28,10 +28,11 @@ public class Produk {
 
 
    // Constructor dengan parameter
-   public Produk(String nama, Double harga, String deskripsi) {
+   public Produk(String nama, Double harga, String deskripsi, int stok) {
        this.nama = nama;
        this.harga = harga;
        this.deskripsi = deskripsi;
+       this.stok = stok;
    }
 
 
@@ -59,7 +60,9 @@ public class Produk {
    public Double getHarga() {
        return harga;
    }
-      public void setHarga(Double harga) {
+
+
+   public void setHarga(Double harga) {
        this.harga = harga;
    }
 
@@ -71,5 +74,13 @@ public class Produk {
 
    public void setDeskripsi(String deskripsi) {
        this.deskripsi = deskripsi;
+   }
+   public int getStok() {
+       return stok;
+   }
+
+
+   public void setStok(int stok) {
+       this.stok = stok;
    }
 }

@@ -1,10 +1,10 @@
-package teknologi.informasi.restapi.services;
+package com.teknologiinformasi.restapi.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import teknologi.informasi.restapi.model.Produk;
-import teknologi.informasi.restapi.repository.ProdukRepository;
+import com.teknologiinformasi.restapi.model.Produk;
+import com.teknologiinformasi.restapi.repository.ProdukRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +12,9 @@ import java.util.Optional;
 
 @Service
 public class ProdukService {
- @Autowired
+
+
+   @Autowired
    private ProdukRepository produkRepository;
 
 
@@ -47,4 +49,3 @@ public class ProdukService {
        produkRepository.delete(produk);
    }
 }
-

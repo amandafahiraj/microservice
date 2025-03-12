@@ -7,11 +7,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import com.teknologiinformasi.restapi.order.event.OrderCreatedEvent;
 import com.teknologiinformasi.restapi.order.model.Order;
 import com.teknologiinformasi.restapi.order.model.OrderResponse;
 import com.teknologiinformasi.restapi.order.model.Produk;
+import com.teknologiinformasi.restapi.order.service.OrderMessageProducer;
 import com.teknologiinformasi.restapi.order.service.OrderService;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +28,9 @@ public class OrderController {
 
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private OrderMessageProducer orderMessageProducer;
 
     // GET semua order
     @GetMapping
@@ -59,12 +65,24 @@ public class OrderController {
 
     // POST buat order baru
     @PostMapping
-    public ResponseEntity<Order> createOrder(@RequestBody Order order) {
-        // (Opsional) Validasi keberadaan produk dengan memanggil Product Service bisa
-        // ditambahkan di sini
-        Order createdOrder = orderService.createOrder(order);
-        return ResponseEntity.ok(createdOrder);
-    }
+   public ResponseEntity<Order> createOrder(@RequestBody Order order) {
+       // Set informasi order
+       order.setOrderDate(LocalDateTime.now());
+       order.setOrderStatus("CREATED");
+       Order createdOrder = orderService.createOrder(order);
+     
+       // Buat dan kirim event
+       OrderCreatedEvent event = new OrderCreatedEvent(
+           createdOrder.getId(),
+           createdOrder.getProductId(),
+           createdOrder.getQuantity(),
+           createdOrder.getOrderDate(),
+           createdOrder.getOrderStatus()
+       );
+       orderMessageProducer.sendOrderCreatedEvent(event);
+     
+       return ResponseEntity.ok(createdOrder);
+   }
 
     // PUT update order
     @PutMapping("/{id}")
